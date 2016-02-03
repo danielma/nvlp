@@ -11,7 +11,7 @@ config :envelope, Envelope.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]]
+  watchers: [node: ["node_modules/webpack/bin/webpack.js", "--watch-stdin", "--progress", "--colors"]]
 
 # Watch static and templates for browser reloading.
 config :envelope, Envelope.Endpoint,
@@ -35,8 +35,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :envelope, Envelope.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "better",
+  password: "better-password",
   database: "envelope_dev",
   hostname: "localhost",
   pool_size: 10
