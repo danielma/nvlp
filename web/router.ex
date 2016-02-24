@@ -18,7 +18,8 @@ defmodule Envelope.Router do
   scope "/", Envelope do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", SessionController, :new
+    post "/login", SessionController, :create
   end
 
   # Other scopes may use custom stacks.

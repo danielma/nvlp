@@ -40,3 +40,7 @@ config :envelope, Envelope.Repo,
   database: "envelope_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :envelope, :authentication,
+  username: "danielma",
+  password: "password"
