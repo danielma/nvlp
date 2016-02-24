@@ -11,6 +11,8 @@ defmodule Envelope.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+
+    resources "/accounts", Envelope.AccountController, except: [:new, :edit]
   end
 
   scope "/", Envelope do
