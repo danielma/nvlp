@@ -10,9 +10,10 @@ defmodule Envelope.Router do
   end
 
   pipeline :api do
+    plug :fetch_session
+    plug :fetch_flash
+    plug Envelope.Plugs.Authenticated
     plug :accepts, ["json"]
-
-    resources "/accounts", Envelope.AccountController, except: [:new, :edit]
   end
 
   scope "/", Envelope do
@@ -22,8 +23,9 @@ defmodule Envelope.Router do
     post "/login", SessionController, :create
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Envelope do
-  #   pipe_through :api
-  # end
+  scope "/api", Envelope do
+    pipe_through :api
+
+    resources "/accounts", AccountController, except: [:new, :edit]
+  end
 end
