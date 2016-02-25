@@ -1,4 +1,5 @@
 defmodule Envelope.Router do
+  import Envelope.Plugs.Authenticated
   use Envelope.Web, :router
 
   pipeline :browser do
@@ -10,10 +11,12 @@ defmodule Envelope.Router do
   end
 
   pipeline :api do
-    plug :fetch_session
-    plug :fetch_flash
-    plug Envelope.Plugs.Authenticated
     plug :accepts, ["json"]
+    plug :api_authentication
+  end
+
+  pipeline :browser_auth do
+    plug :browser_authentication
   end
 
   scope "/", Envelope do
@@ -21,6 +24,11 @@ defmodule Envelope.Router do
 
     get "/", SessionController, :new
     post "/login", SessionController, :create
+  end
+
+  scope "/app", Envelope do
+    pipe_through :browser
+    pipe_through :browser_auth
   end
 
   scope "/api", Envelope do

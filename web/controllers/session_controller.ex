@@ -14,7 +14,7 @@ defmodule Envelope.SessionController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    auth =  Application.get_env(:envelope, :authentication)
+    auth = Application.get_env(:envelope, :authentication)
     if user_params["username"] == auth[:username] &&
       user_params["password"] == auth[:password] do
       conn
