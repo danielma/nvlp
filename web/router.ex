@@ -29,6 +29,8 @@ defmodule Envelope.Router do
   scope "/app", Envelope do
     pipe_through :browser
     pipe_through :browser_auth
+
+    get "/", PageController, :index
   end
 
   scope "/api", Envelope do

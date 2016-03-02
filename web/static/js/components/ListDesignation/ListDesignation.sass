@@ -1,0 +1,34 @@
+@import '~styles/variables'
+
+.designation
+  border-style: solid
+  border-width: 0 0 1px
+  border-color: $hilfigher
+  font-size: .8rem
+  padding: .3rem
+  background-color: white
+
+  &.editing
+    background-color: darken(white, 7%)
+
+.row
+  display: flex
+  text-decoration: none
+
+  &:first-child
+    border-top-width: 0
+
+  > *
+    flex-grow: 1
+
+.edit
+  padding-top: .3rem
+
+.amount
+  flex-grow: 0
+
+  &.positive
+    color: $grass
+
+  &.negative
+    color: $mauve
