@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react'
-import Parse from 'parse'
 import R from 'ramda'
 import Modal from 'react-modal'
 import { EnvelopeSidebar, DesignationList, InboxList, NewEnvelope } from 'components'
 import { parameterize } from 'utils/string'
 import { observe } from 'utils/react'
+import EnvelopeApi from "api/envelope"
+import TransactionApi from "api/transaction"
 import styles from './Envelopes.sass'
 
 class Envelopes extends React.Component {
@@ -83,6 +84,6 @@ class Envelopes extends React.Component {
 }
 
 export default observe({
-  envelopes: new Parse.Query('Envelope'),
-  transactions: new Parse.Query('Transaction').notEqualTo('designated', true),
+  envelopes: EnvelopeApi.query("index"),
+  transactions: TransactionApi.query("index", { designated: false }),
 })(Envelopes)

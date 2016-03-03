@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import Parse from 'parse'
 import Immutable from 'immutable'
 import { Button, MoneyInput, ButtonGroup } from 'components'
 import { money } from 'utils'
@@ -10,16 +9,16 @@ const emptyDesignation = Immutable.fromJS({
   envelope: { __type: 'Pointer', className: '_Envelope', objectId: null },
 })
 
-@observe((props) => {
-  const designationQuery = new Parse.Query('Designation')
-  const transactionQuery = new Parse.Query('Transaction').equalTo('objectId', props.id).limit(1)
+// @observe((props) => {
+//   const designationQuery = new Parse.Query('Designation')
+//   const transactionQuery = new Parse.Query('Transaction').equalTo('objectId', props.id).limit(1)
 
-  return {
-    envelopes: new Parse.Query('Envelope'),
-    transactions: transactionQuery,
-    initialDesignations: designationQuery.matchesQuery('transaction', transactionQuery),
-  }
-})
+//   return {
+//     envelopes: new Parse.Query('Envelope'),
+//     transactions: transactionQuery,
+//     initialDesignations: designationQuery.matchesQuery('transaction', transactionQuery),
+//   }
+// })
 export default class TransactionEditor extends React.Component {
   static propTypes = {
     commit: PropTypes.func.isRequired,

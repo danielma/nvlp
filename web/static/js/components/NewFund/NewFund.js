@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import Parse from 'parse'
 import R from 'ramda'
 import { money } from 'utils'
 import Immutable from 'immutable'
@@ -19,7 +18,7 @@ function round(num, dec = 2) {
 }
 
 // TODO: put this iside the envelopes page intelligently
-class NewFund extends React.Component {
+export default class NewFund extends React.Component {
   static propTypes = {
     envelopes: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
@@ -33,17 +32,17 @@ class NewFund extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
 
-    Parse.Cloud.run('createTransfer', {
-      fromEnvelopeId: separateEnvelopes(this.props.envelopes).income[0].objectId,
-      amountCents: this.totalCents,
-      payee: 'Funding',
-      designations: this.state.fundings.
-        map((funding, envelopeId) => ({
-          envelopeId,
-          amountCents: funding.get('amountCents'),
-        })).
-        toArray(),
-    })
+    // Parse.Cloud.run('createTransfer', {
+    //   fromEnvelopeId: separateEnvelopes(this.props.envelopes).income[0].objectId,
+    //   amountCents: this.totalCents,
+    //   payee: 'Funding',
+    //   designations: this.state.fundings.
+    //     map((funding, envelopeId) => ({
+    //       envelopeId,
+    //       amountCents: funding.get('amountCents'),
+    //     })).
+    //     toArray(),
+    // })
   };
 
   handleFundingPercentageChange = ({ objectId }, e) => {
@@ -147,4 +146,4 @@ class NewFund extends React.Component {
   }
 }
 
-export default observe({ envelopes: new Parse.Query('Envelope') })(NewFund)
+// export default observe({ envelopes: new Parse.Query('Envelope') })(NewFund)

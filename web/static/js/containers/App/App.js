@@ -1,25 +1,18 @@
-import React, { PropTypes } from 'react'
-import ParseReact from 'parse-react'
-import { Main, Login } from 'containers'
-import { observe } from 'utils/react'
+import React, { PropTypes } from "react"
+import { Main } from "containers"
 
-class App extends React.Component {
+export default class App extends React.Component {
   static propTypes = {
     children: PropTypes.node,
-
-    // connect
-    user: PropTypes.object.isRequired,
   };
 
   render() {
-    const styles = require('./App.sass')
+    const styles = require("./App.sass")
 
     return (
       <div className={styles.wrapper}>
-        {this.props.user ? <Main>{this.props.children}</Main> : <Login />}
+        <Main>{this.props.children}</Main>
       </div>
     )
   }
 }
-
-export default observe({ user: ParseReact.currentUser })(App)

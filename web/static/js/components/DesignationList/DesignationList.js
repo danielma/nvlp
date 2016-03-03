@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import Parse from 'parse'
 import { observe } from 'utils/react'
 import { ListDesignation } from 'components'
 
@@ -13,7 +12,7 @@ function getObserves(props) {
   return { designations }
 }
 
-class DesignationList extends React.Component {
+export default class DesignationList extends React.Component {
   static propTypes = {
     // TODO: proptypes?
     designations: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -38,4 +37,4 @@ class DesignationList extends React.Component {
   }
 }
 
-export default observe(getObserves)(DesignationList)
+// export default observe(getObserves)(DesignationList)

@@ -1,21 +1,14 @@
-import Parse from 'parse'
-import ParseReact from 'parse-react'
-import R from 'ramda'
-
-const Envelope = Parse.Object.extend('Envelope')
+import R from "ramda"
+import EnvelopeApi from "api/envelope"
 
 const emptyOrCreate = R.curry((name, results) => {
   if (!R.isEmpty(results)) { return null }
 
-  return ParseReact.Mutation.
-    Create('Envelope', { name, ACL: new Parse.ACL(Parse.User.current()) }).
-    dispatch()
+  return EnvelopeApi.create({ name })
 })
 
 export default function defaults() {
   R.forEach((name) => {
-    const query = new Parse.Query(Envelope)
-    query.equalTo('name', name)
-    query.find().then(emptyOrCreate(name))
-  }, ['Income Pool'])
+    EnvelopeApi.index({ name: name }).then(emptyOrCreate(name))
+  }, ["Income Pool"])
 }

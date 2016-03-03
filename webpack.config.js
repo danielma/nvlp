@@ -22,6 +22,11 @@ module.exports = {
     path: "./priv/static/js",
     filename: 'app.js',
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      "fetch": "imports?this=>global!exports?global.fetch!whatwg-fetch"
+    })
+  ],
   module: {
     loaders: [
       {

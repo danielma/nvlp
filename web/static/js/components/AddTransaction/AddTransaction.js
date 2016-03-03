@@ -1,7 +1,5 @@
 import React from 'react'
-import Parse from 'parse'
 import Immutable from 'immutable'
-import ParseReact from 'parse-react'
 import { Button, MoneyInput, ButtonGroup } from 'components'
 import { money } from 'utils'
 
@@ -12,8 +10,6 @@ const emptyDesignation = Immutable.Map({
 
 export default React.createClass({
   displayName: 'AddTransaction',
-
-  mixins: [ParseReact.Mixin],
 
   observe() {
     return { envelopes: new Parse.Query('Envelope') }
@@ -54,11 +50,11 @@ export default React.createClass({
   },
 
   addTransaction() {
-    Parse.Cloud.run('createTransaction', {
-      amountCents: this.state.transactionAmountCents,
-      payee: this.state.payee,
-      designations: this.state.designations.toJS(),
-    })
+    // Parse.Cloud.run('createTransaction', {
+    //   amountCents: this.state.transactionAmountCents,
+    //   payee: this.state.payee,
+    //   designations: this.state.designations.toJS(),
+    // })
   },
 
   addDesignation() {

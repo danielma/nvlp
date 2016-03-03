@@ -1,10 +1,6 @@
 import React from 'react'
-import { Parse } from 'parse'
-import ParseReact from 'parse-react'
 
 export default React.createClass({
-  mixins: [ParseReact.Mixin],
-
   getInitialState() {
     return {
       error: null,

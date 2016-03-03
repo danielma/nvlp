@@ -8,9 +8,7 @@ defmodule Envelope.Plugs.Authenticated do
       |> get_req_header("authorization")
       |> List.first
 
-    Logger.debug(token)
-    Logger.debug(get_api_token)
-    if token == get_api_token do
+    if token == api_token do
       conn
     else
       conn
@@ -31,7 +29,7 @@ defmodule Envelope.Plugs.Authenticated do
     end
   end
 
-  defp get_api_token do
+  def api_token do
     auth = Application.get_env(:envelope, :authentication)
 
     "Basic " <> Base.encode64(auth[:username] <> ":" <> auth[:password])
