@@ -164,7 +164,7 @@
     # http://eslint.org/docs/rules/no-unused-expressions
     no-unused-expressions: [2, { allowShortCircuit: true, allowTernary: true}]
     # http://eslint.org/docs/rules/no-unused-vars
-    no-unused-vars: [2, { argsIgnorePattern: "^_" }]
+    no-unused-vars: [2, { argsIgnorePattern: "^_", "varsIgnorePattern": "React" }]
     # http://eslint.org/docs/rules/no-useless-call
     no-useless-call: 2
     # http://eslint.org/docs/rules/no-useless-concat
@@ -336,6 +336,7 @@
       - 2
       - "always"
     react/wrap-multilines: 2
+    react/react-in-jsx-scope: 2
   env:
     es6: true
     browser: true

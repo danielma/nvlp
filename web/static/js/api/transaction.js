@@ -2,7 +2,7 @@ import ApiBase from "./base"
 
 class EnvelopeApi extends ApiBase {
   index(data = {}) {
-    return this.request("envelopes", data)
+    return this.get("envelopes", data)
   }
 }
 

@@ -1,3 +1,4 @@
+import { parseJSON } from "utils"
 import React from "react"
 import R from "ramda"
 
@@ -24,9 +25,9 @@ export function observe(observes) {
         })
 
         R.keys(componentObserves).forEach((key) => {
-          componentObserves[key]().then((data) => {
+          componentObserves[key]().then(parseJSON).then((data) => {
             this.setState({
-              queries: { ...this.state.queries, [key]: data },
+              queries: { ...this.state.queries, [key]: data.data },
               pendingQueryCount: this.state.pendingQueryCount - 1,
             })
           })
@@ -35,7 +36,7 @@ export function observe(observes) {
 
       render() {
         const props = {
-          loaded: this.pendingQueryCount === 0,
+          loaded: this.state.pendingQueryCount === 0,
           ...this.state.queries,
           ...this.props,
         }

@@ -19,23 +19,24 @@ defmodule Envelope.Router do
     plug :browser_authentication
   end
 
-  scope "/", Envelope do
-    pipe_through :browser # Use the default browser stack
-
-    get "/", SessionController, :new
-    post "/login", SessionController, :create
-  end
-
-  scope "/app", Envelope do
-    pipe_through :browser
-    pipe_through :browser_auth
-
-    get "/", PageController, :index
-  end
-
   scope "/api", Envelope do
     pipe_through :api
 
     resources "/accounts", AccountController, except: [:new, :edit]
+    resources "/envelopes", EnvelopeController, except: [:new, :edit]
+  end
+
+  scope "/", Envelope do
+    pipe_through :browser # Use the default browser stack
+
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create
+  end
+
+  scope "/", Envelope do
+    pipe_through :browser
+    pipe_through :browser_auth
+
+    get "/*anything", PageController, :index
   end
 end

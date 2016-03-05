@@ -7,7 +7,7 @@ defmodule Envelope.SessionController do
 
   def new(conn, _params) do
     if get_session(conn, :current_user) do
-      redirect(conn, to: account_path(conn, :index))
+      redirect(conn, to: page_path(conn, :index, [""]))
     else
       render conn
     end
