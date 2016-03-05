@@ -1,3 +1,3 @@
-defmodule Envelope.SessionView do
-  use Envelope.Web, :view
+defmodule Nvlp.SessionView do
+  use Nvlp.Web, :view
 end

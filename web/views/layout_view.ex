@@ -1,3 +1,3 @@
-defmodule Envelope.LayoutView do
-  use Envelope.Web, :view
+defmodule Nvlp.LayoutView do
+  use Nvlp.Web, :view
 end

@@ -1,4 +1,4 @@
-defmodule Envelope.Repo.Migrations.CreateEnvelope do
+defmodule Nvlp.Repo.Migrations.CreateEnvelope do
   use Ecto.Migration
 
   def change do

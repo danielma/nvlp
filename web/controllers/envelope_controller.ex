@@ -1,7 +1,7 @@
-defmodule Envelope.EnvelopeController do
-  use Envelope.Web, :controller
+defmodule Nvlp.EnvelopeController do
+  use Nvlp.Web, :controller
 
-  alias Envelope.Envelope
+  alias Nvlp.Envelope
 
   plug :scrub_params, "envelope" when action in [:create, :update]
 
@@ -22,7 +22,7 @@ defmodule Envelope.EnvelopeController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(Envelope.ChangesetView, "error.json", changeset: changeset)
+        |> render(Nvlp.ChangesetView, "error.json", changeset: changeset)
     end
   end
 
@@ -41,7 +41,7 @@ defmodule Envelope.EnvelopeController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(Envelope.ChangesetView, "error.json", changeset: changeset)
+        |> render(Nvlp.ChangesetView, "error.json", changeset: changeset)
     end
   end
 

@@ -1,7 +1,7 @@
-defmodule Envelope.AccountController do
-  use Envelope.Web, :controller
+defmodule Nvlp.AccountController do
+  use Nvlp.Web, :controller
 
-  alias Envelope.Account
+  alias Nvlp.Account
 
   plug :scrub_params, "account" when action in [:create, :update]
 
@@ -22,7 +22,7 @@ defmodule Envelope.AccountController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(Envelope.ChangesetView, "error.json", changeset: changeset)
+        |> render(Nvlp.ChangesetView, "error.json", changeset: changeset)
     end
   end
 
@@ -41,7 +41,7 @@ defmodule Envelope.AccountController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(Envelope.ChangesetView, "error.json", changeset: changeset)
+        |> render(Nvlp.ChangesetView, "error.json", changeset: changeset)
     end
   end
 

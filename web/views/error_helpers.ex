@@ -1,4 +1,4 @@
-defmodule Envelope.ErrorHelpers do
+defmodule Nvlp.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -26,10 +26,10 @@ defmodule Envelope.ErrorHelpers do
     #
     #     dngettext "errors", "1 file", "%{count} files", count
     #
-    Gettext.dngettext(Envelope.Gettext, "errors", msg, msg, opts[:count], opts)
+    Gettext.dngettext(Nvlp.Gettext, "errors", msg, msg, opts[:count], opts)
   end
 
   def translate_error(msg) do
-    Gettext.dgettext(Envelope.Gettext, "errors", msg)
+    Gettext.dgettext(Nvlp.Gettext, "errors", msg)
   end
 end

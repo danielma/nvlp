@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Envelope</title>
+    <title>Nvlp</title>
     <link href="https://cdn.rawgit.com/murtaugh/HTML5-Reset/master/assets/css/reset.css" rel="stylesheet" />
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <%= if @conn.assigns[:current_user] do %>
-      <script type="text/javascript">window.apiToken = "<%= Envelope.Plugs.Authenticated.api_token %>"</script>
+      <script type="text/javascript">window.apiToken = "<%= Nvlp.Plugs.Authenticated.api_token %>"</script>
     <% end %>
   </head>
   <head>

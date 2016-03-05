@@ -1,5 +1,5 @@
-defmodule Envelope.Account do
-  use Envelope.Web, :model
+defmodule Nvlp.Account do
+  use Nvlp.Web, :model
 
   schema "accounts" do
     field :name, :string

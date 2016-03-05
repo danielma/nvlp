@@ -1,12 +1,12 @@
-defmodule Envelope.Web do
+defmodule Nvlp.Web do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use Envelope.Web, :controller
-      use Envelope.Web, :view
+      use Nvlp.Web, :controller
+      use Nvlp.Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -30,12 +30,12 @@ defmodule Envelope.Web do
     quote do
       use Phoenix.Controller
 
-      alias Envelope.Repo
+      alias Nvlp.Repo
       import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 
-      import Envelope.Router.Helpers
-      import Envelope.Gettext
+      import Nvlp.Router.Helpers
+      import Nvlp.Gettext
     end
   end
 
@@ -49,9 +49,9 @@ defmodule Envelope.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import Envelope.Router.Helpers
-      import Envelope.ErrorHelpers
-      import Envelope.Gettext
+      import Nvlp.Router.Helpers
+      import Nvlp.ErrorHelpers
+      import Nvlp.Gettext
     end
   end
 
@@ -65,10 +65,10 @@ defmodule Envelope.Web do
     quote do
       use Phoenix.Channel
 
-      alias Envelope.Repo
+      alias Nvlp.Repo
       import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
-      import Envelope.Gettext
+      import Nvlp.Gettext
     end
   end
 

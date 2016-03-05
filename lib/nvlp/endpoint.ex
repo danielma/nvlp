@@ -1,7 +1,7 @@
-defmodule Envelope.Endpoint do
+defmodule Nvlp.Endpoint do
   use Phoenix.Endpoint, otp_app: :envelope
 
-  socket "/socket", Envelope.UserSocket
+  socket "/socket", Nvlp.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -35,5 +35,5 @@ defmodule Envelope.Endpoint do
     key: "_envelope_key",
     signing_salt: "e76TwkCU"
 
-  plug Envelope.Router
+  plug Nvlp.Router
 end

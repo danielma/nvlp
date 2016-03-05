@@ -1,5 +1,5 @@
-defmodule Envelope.Envelope do
-  use Envelope.Web, :model
+defmodule Nvlp.Envelope do
+  use Nvlp.Web, :model
 
   schema "envelopes" do
     field :amount_cents, :string

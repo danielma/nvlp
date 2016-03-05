@@ -1,5 +1,5 @@
-defmodule Envelope.PageControllerTest do
-  use Envelope.ConnCase
+defmodule Nvlp.PageControllerTest do
+  use Nvlp.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"

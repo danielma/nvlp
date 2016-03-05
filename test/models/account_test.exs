@@ -1,7 +1,7 @@
-defmodule Envelope.AccountTest do
-  use Envelope.ModelCase
+defmodule Nvlp.AccountTest do
+  use Nvlp.ModelCase
 
-  alias Envelope.Account
+  alias Nvlp.Account
 
   @valid_attrs %{name: "some content"}
   @invalid_attrs %{}

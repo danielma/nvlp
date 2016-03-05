@@ -1,6 +1,6 @@
-defmodule Envelope.Router do
-  import Envelope.Plugs.Authenticated
-  use Envelope.Web, :router
+defmodule Nvlp.Router do
+  import Nvlp.Plugs.Authenticated
+  use Nvlp.Web, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -19,21 +19,21 @@ defmodule Envelope.Router do
     plug :browser_authentication
   end
 
-  scope "/api", Envelope do
+  scope "/api", Nvlp do
     pipe_through :api
 
     resources "/accounts", AccountController, except: [:new, :edit]
     resources "/envelopes", EnvelopeController, except: [:new, :edit]
   end
 
-  scope "/", Envelope do
+  scope "/", Nvlp do
     pipe_through :browser # Use the default browser stack
 
     get "/login", SessionController, :new
     post "/login", SessionController, :create
   end
 
-  scope "/", Envelope do
+  scope "/", Nvlp do
     pipe_through :browser
     pipe_through :browser_auth
 

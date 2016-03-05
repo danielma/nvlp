@@ -1,4 +1,4 @@
-defmodule Envelope.Plugs.Authenticated do
+defmodule Nvlp.Plugs.Authenticated do
   require Logger
   import Plug.Conn
   import Phoenix.Controller
@@ -25,7 +25,7 @@ defmodule Envelope.Plugs.Authenticated do
     else
       conn
       |> put_flash(:error, "You must be logged in")
-      |> redirect(to: Envelope.Router.Helpers.session_path(conn, :new))
+      |> redirect(to: Nvlp.Router.Helpers.session_path(conn, :new))
     end
   end
 

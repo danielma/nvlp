@@ -1,7 +1,7 @@
-defmodule Envelope.SessionController do
+defmodule Nvlp.SessionController do
   require Logger
 
-  use Envelope.Web, :controller
+  use Nvlp.Web, :controller
 
   plug :scrub_params, "user" when action in [:create]
 
