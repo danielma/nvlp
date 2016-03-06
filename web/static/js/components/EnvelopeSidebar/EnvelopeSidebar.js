@@ -1,11 +1,11 @@
-import React, { PropTypes } from 'react'
-import { ListEnvelope, Button } from 'components'
-import styles from './EnvelopeSidebar.sass'
+import React, { PropTypes } from "react"
+import { ListEnvelope, Button } from "components"
+import styles from "./EnvelopeSidebar.sass"
 
 const Envelope = PropTypes.object // TODO: better prop type here
 
 export default React.createClass({
-  displayName: 'EnvelopeSidebar',
+  displayName: "EnvelopeSidebar",
 
   propTypes: {
     envelopes: PropTypes.arrayOf(Envelope).isRequired,
@@ -26,7 +26,7 @@ export default React.createClass({
         <div className={styles.envelopes}>
           {envelopes.map((envelope) => (
             <ListEnvelope
-              key={envelope.objectId}
+              key={envelope.id}
               envelope={envelope}
               selected={envelope === selected} />
           ))}

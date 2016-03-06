@@ -1,12 +1,12 @@
-import React, { PropTypes } from 'react'
-import R from 'ramda'
-import Modal from 'react-modal'
-import { EnvelopeSidebar, DesignationList, InboxList, NewEnvelope } from 'components'
-import { parameterize } from 'utils/string'
-import { observe } from 'utils/react'
+import React, { PropTypes } from "react"
+import R from "ramda"
+import Modal from "react-modal"
+import { EnvelopeSidebar, DesignationList, InboxList, NewEnvelope } from "components"
+import { parameterize } from "utils/string"
+import { observe } from "utils/react"
 import EnvelopeApi from "api/envelope"
 import TransactionApi from "api/transaction"
-import styles from './Envelopes.sass'
+import styles from "./Envelopes.sass"
 
 class Envelopes extends React.Component {
   static propTypes = {
@@ -50,24 +50,26 @@ class Envelopes extends React.Component {
   }
 
   get envelopesWithInbox() {
-    return [{ name: 'Inbox', amountCents: this.inboxAmountCents }].concat(this.props.envelopes)
+    return [
+      { id: "inbox", name: "Inbox", amountCents: this.inboxAmountCents },
+    ].concat(this.props.envelopes)
   }
 
   renderList() {
     const selectedEnvelope = this.selectedEnvelope
 
     switch (true) {
-      case (selectedEnvelope && selectedEnvelope.name === 'Inbox'):
-        return <InboxList transactions={this.props.transactions} />
-      case !!selectedEnvelope:
-        return <DesignationList envelope={selectedEnvelope} />
-      default:
-        return <div className={styles.blankSlate} />
+    case (selectedEnvelope && selectedEnvelope.name === "Inbox"):
+      return <InboxList transactions={this.props.transactions} />
+    case !!selectedEnvelope:
+      return <DesignationList envelope={selectedEnvelope} />
+    default:
+      return <div className={styles.blankSlate} />
     }
   }
 
   render() {
-    const newEnvelope = this.paramEnvelope === 'new'
+    const newEnvelope = this.paramEnvelope === "new"
 
     return (
       <div className={styles.wrapper}>

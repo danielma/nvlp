@@ -1,25 +1,24 @@
-import React, { PropTypes } from 'react'
-import { observe } from 'utils/react'
-import { ListDesignation } from 'components'
+import React, { PropTypes } from "react"
+import { observe } from "utils/react"
+import { ListDesignation } from "components"
+import DesignationApi from "api/designation"
 
 function getObserves(props) {
-  const designations = new Parse.Query('Designation')
+  const designations = DesignationApi.query("index", { envelope_id: props.envelope.id })
 
-  designations.
-    equalTo('envelope', props.envelope).
-    include('transaction')
+  // include("transaction")
 
   return { designations }
 }
 
-export default class DesignationList extends React.Component {
+class DesignationList extends React.Component {
   static propTypes = {
     // TODO: proptypes?
     designations: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
 
   render() {
-    const styles = require('./DesignationList.sass')
+    const styles = require("./DesignationList.sass")
 
     return (
       <div>
@@ -37,4 +36,4 @@ export default class DesignationList extends React.Component {
   }
 }
 
-// export default observe(getObserves)(DesignationList)
+export default observe(getObserves)(DesignationList)
