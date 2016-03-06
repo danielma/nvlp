@@ -1,16 +1,11 @@
 import React, { PropTypes } from "react"
 import { Navigation } from "components"
-import { ensureDefaults } from "utils"
 import styles from "./Main.sass"
 
 export default class MainContainer extends React.Component {
   static propTypes = {
     children: PropTypes.node,
   };
-
-  componentDidMount() {
-    ensureDefaults()
-  }
 
   render() {
     return (

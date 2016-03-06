@@ -2,7 +2,7 @@ defmodule Nvlp.Envelope do
   use Nvlp.Web, :model
 
   schema "envelopes" do
-    field :amount_cents, :string
+    field :amount_cents, :integer, default: 0
     field :name, :string
 
     timestamps
