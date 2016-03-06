@@ -8,8 +8,8 @@ defmodule Nvlp.Envelope do
     timestamps
   end
 
-  @required_fields ~w(amount_cents name)
-  @optional_fields ~w()
+  @required_fields ~w(name)
+  @optional_fields ~w(amount_cents)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

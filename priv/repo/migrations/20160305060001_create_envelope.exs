@@ -3,7 +3,7 @@ defmodule Nvlp.Repo.Migrations.CreateEnvelope do
 
   def change do
     create table(:envelopes) do
-      add :amount_cents, :string
+      add :amount_cents, :integer
       add :name, :string
 
       timestamps

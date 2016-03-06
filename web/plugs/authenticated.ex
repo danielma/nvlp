@@ -30,7 +30,7 @@ defmodule Nvlp.Plugs.Authenticated do
   end
 
   def api_token do
-    auth = Application.get_env(:envelope, :authentication)
+    auth = Application.get_env(:nvlp, :authentication)
 
     "Basic " <> Base.encode64(auth[:username] <> ":" <> auth[:password])
   end

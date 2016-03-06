@@ -20,5 +20,5 @@ defmodule Nvlp.Gettext do
 
   See the [Gettext Docs](http://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :envelope
+  use Gettext, otp_app: :nvlp
 end

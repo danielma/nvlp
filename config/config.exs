@@ -6,7 +6,7 @@
 use Mix.Config
 
 # Configures the endpoint
-config :envelope, Nvlp.Endpoint,
+config :nvlp, Nvlp.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
   secret_key_base: "mOypnocNamM0ecMOxdIHmEXLZmZKILplBgjCFjRJwC4q3+vtEUlluL707ZORUjvQ",
