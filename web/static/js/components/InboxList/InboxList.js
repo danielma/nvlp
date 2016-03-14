@@ -12,7 +12,7 @@ export default function InboxList({ transactions }) {
       {transactions.map((transaction) => (
         <ListDesignation
           designation={transaction}
-          key={transaction.objectId} />
+          key={transaction.id} />
       ))}
     </div>
   )

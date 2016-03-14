@@ -1,9 +1,9 @@
 import ApiBase from "./base"
 
-class EnvelopeApi extends ApiBase {
+class TransactionApi extends ApiBase {
   index(data = {}) {
-    return this.get("envelopes", data)
+    return this.get("transactions", data)
   }
 }
 
-export default new EnvelopeApi()
+export default new TransactionApi()

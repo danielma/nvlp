@@ -15,7 +15,7 @@ const transactionId = (designationOrTransaction) => (
 export default class ListDesignation extends React.Component {
   static propTypes = {
     designation: PropTypes.shape({
-      amountCents: PropTypes.number.isRequired,
+      amount_cents: PropTypes.number.isRequired,
     }).isRequired,
   };
 
@@ -38,8 +38,8 @@ export default class ListDesignation extends React.Component {
       <div className={`${styles.designation} ${this.state.isEditing && styles.editing}`}>
         <div onClick={this.handleClick} className={styles.row}>
           <span className={styles.name}>{payee(designation)}</span>
-          <span className={`${styles.amount} ${designation.amountCents >= 0 ? styles.positive : styles.negative}`}>
-            {money.centsToString(designation.amountCents)}
+          <span className={`${styles.amount} ${designation.amount_cents >= 0 ? styles.positive : styles.negative}`}>
+            {money.centsToString(designation.amount_cents)}
           </span>
         </div>
         {this.state.isEditing &&

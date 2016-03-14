@@ -24,6 +24,7 @@ defmodule Nvlp.Router do
 
     resources "/accounts", AccountController, except: [:new, :edit]
     resources "/envelopes", EnvelopeController, except: [:new, :edit]
+    resources "/transactions", TransactionController, except: [:new, :edit]
   end
 
   scope "/", Nvlp do
