@@ -3,11 +3,18 @@ defmodule Nvlp.TransactionController do
 
   alias Nvlp.Transaction
 
+  import Ecto.Query, only: [from: 2]
+
   plug :scrub_params, "transaction" when action in [:create, :update]
 
-  def index(conn, _params) do
-    transactions = Repo.all(Transaction)
-    render(conn, "index.json", transactions: transactions)
+  def index(conn, params) do
+    if params[:designated] do
+      query = from t in Transaction, where: t.designated == false
+      render(conn, "index.json", transactions: Repo.all(query))
+    else
+      transactions = Repo.all(Transaction)
+      render(conn, "index.json", transactions: transactions)
+    end
   end
 
   def create(conn, %{"transaction" => transaction_params}) do
