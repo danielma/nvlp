@@ -10,7 +10,9 @@ class EnvelopeApi extends ApiBase {
   }
 
   create(envelope) {
-    return this.post("envelopes", { envelope }, { method: "POST" })
+    const promise = this.post("envelopes", { envelope }, { method: "POST" })
+    promise.then(this.markQueriesAsNeedingUpdate)
+    return promise
   }
 }
 

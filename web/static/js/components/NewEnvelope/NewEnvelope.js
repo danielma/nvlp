@@ -1,9 +1,10 @@
-import React, { PropTypes } from 'react'
-import { Button } from 'components'
-import { string } from 'utils'
+import React, { PropTypes } from "react"
+import { Button } from "components"
+import { string } from "utils"
+import EnvelopeApi from "api/envelope"
 
 export default React.createClass({
-  displayName: 'NewEnvelope',
+  displayName: "NewEnvelope",
 
   contextTypes: {
     history: PropTypes.object,
@@ -15,10 +16,8 @@ export default React.createClass({
     const name = this.refs.name.value
     const slug = string.parameterize(name)
 
-    // ParseReact.Mutation.Create('Envelope', { name, ACL: acl }).
-    //   dispatch().
-    //   then(() => this.context.history.pushState({}, `/envelopes/${slug}`),
-    //        () => this.setState({ error: true }))
+    EnvelopeApi.create({ name }).
+      then(() => this.context.history.pushState({}, `/envelopes/${slug}`))
   },
 
   render() {

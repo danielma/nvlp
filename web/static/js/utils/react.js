@@ -17,19 +17,36 @@ export function observe(observes) {
       };
 
       componentWillMount() {
-        const componentObserves = getObserves(this.props, this.state)
+        this.componentQueries = getObserves(this.props, this.state)
 
         this.setState({
-          queries: R.map(R.always([]), componentObserves),
-          pendingQueryCount: R.length(R.keys(componentObserves)),
+          queries: R.map(R.always([]), this.componentQueries),
+          pendingQueryCount: R.length(R.keys(this.componentQueries)),
         })
 
-        R.keys(componentObserves).forEach((key) => {
-          componentObserves[key]().then(parseJSON).then((data) => {
-            this.setState({
-              queries: { ...this.state.queries, [key]: data.data },
-              pendingQueryCount: this.state.pendingQueryCount - 1,
-            })
+        R.keys(this.componentQueries).forEach((key) => {
+          const query = this.componentQueries[key]
+
+          this.executeQuery(query, key)
+
+          query.on("needsUpdate", () => {
+            this.setState({ pendingQueryCount: this.state.pendingQueryCount + 1 })
+            this.executeQuery(query, key)
+          })
+        })
+      }
+
+      componentWillUnmount() {
+        R.keys(this.componentQueries).forEach((key) => {
+          this.componentQueries[key].destroy()
+        })
+      }
+
+      executeQuery(query, key) {
+        query.execute().then(parseJSON).then((data) => {
+          this.setState({
+            queries: { ...this.state.queries, [key]: data.data },
+            pendingQueryCount: this.state.pendingQueryCount - 1,
           })
         })
       }

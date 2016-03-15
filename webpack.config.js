@@ -4,7 +4,7 @@ var webpack = require('webpack')
 require('dotenv').load()
 
 module.exports = {
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   entry: [
     //'webpack-hot-middleware/client',
     './web/static/js/app.js',

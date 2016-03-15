@@ -86,6 +86,6 @@ class Envelopes extends React.Component {
 }
 
 export default observe({
-  envelopes: EnvelopeApi.query("index"),
+  envelopes: EnvelopeApi.query("index", { fromEnvelopeComponent: true }),
   transactions: TransactionApi.query("index", { designated: false }),
 })(Envelopes)
