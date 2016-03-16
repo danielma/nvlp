@@ -9,6 +9,7 @@ defmodule Nvlp.Transaction do
     field :amount_cents, :integer
     field :memo, :string
     belongs_to :account, Nvlp.Account
+    has_many :designations, Nvlp.Designation
 
     timestamps
   end
@@ -25,5 +26,6 @@ defmodule Nvlp.Transaction do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> cast_assoc(:designations, required: true)
   end
 end

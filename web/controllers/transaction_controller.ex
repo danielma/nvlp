@@ -39,7 +39,7 @@ defmodule Nvlp.TransactionController do
   end
 
   def update(conn, %{"id" => id, "transaction" => transaction_params}) do
-    transaction = Repo.get!(Transaction, id)
+    transaction = Repo.get!(Transaction, id) |> Repo.preload(:designations)
     changeset = Transaction.changeset(transaction, transaction_params)
 
     case Repo.update(changeset) do

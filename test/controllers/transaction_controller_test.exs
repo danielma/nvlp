@@ -2,7 +2,20 @@ defmodule Nvlp.TransactionControllerTest do
   use Nvlp.ConnCase
 
   alias Nvlp.Transaction
-  @valid_attrs %{amount_cents: 42, designated: true, institution_id: 42, memo: "some content", payee: "some content", posted_at: "2010-04-17 14:00:00"}
+  @valid_attrs %{
+    amount_cents: 100,
+    designated: true,
+    institution_id: 42,
+    memo: "controller-made",
+    payee: "some content",
+    posted_at: "2010-04-17 14:00:00",
+    designations: [
+      %{
+        amount_cents: 100,
+        envelope_id: 1,
+      }
+    ]
+  }
   @invalid_attrs %{}
 
   setup %{conn: conn} do
@@ -36,7 +49,7 @@ defmodule Nvlp.TransactionControllerTest do
   test "creates and renders resource when data is valid", %{conn: conn} do
     conn = post conn, transaction_path(conn, :create), transaction: @valid_attrs
     assert json_response(conn, 201)["data"]["id"]
-    assert Repo.get_by(Transaction, @valid_attrs)
+    assert Repo.get_by(Transaction, %{ memo: "controller-made" })
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
@@ -48,7 +61,7 @@ defmodule Nvlp.TransactionControllerTest do
     transaction = Repo.insert! %Transaction{}
     conn = put conn, transaction_path(conn, :update, transaction), transaction: @valid_attrs
     assert json_response(conn, 200)["data"]["id"]
-    assert Repo.get_by(Transaction, @valid_attrs)
+    assert Repo.get_by(Transaction, %{ memo: "controller-made" })
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do

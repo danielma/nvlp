@@ -2,7 +2,7 @@ defmodule Nvlp.EnvelopeControllerTest do
   use Nvlp.ConnCase
 
   alias Nvlp.Envelope
-  @valid_attrs %{amount_cents: "some content", name: "some content"}
+  @valid_attrs %{amount_cents: 100, name: "Cool Envelope"}
   @invalid_attrs %{}
 
   setup %{conn: conn} do

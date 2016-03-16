@@ -20,7 +20,7 @@ defmodule Nvlp.Plugs.Authenticated do
   def browser_authentication(conn, _default) do
     current_user = get_session(conn, :current_user)
 
-    if current_user do
+    if current_user || auth[:always_pass] do
       assign(conn, :current_user, current_user)
     else
       conn
@@ -30,8 +30,14 @@ defmodule Nvlp.Plugs.Authenticated do
   end
 
   def api_token do
-    auth = Application.get_env(:nvlp, :authentication)
+    if auth[:always_pass] do
+      nil
+    else
+      "Basic " <> Base.encode64(auth[:username] <> ":" <> auth[:password])
+    end
+  end
 
-    "Basic " <> Base.encode64(auth[:username] <> ":" <> auth[:password])
+  defp auth do
+    Application.get_env(:nvlp, :authentication)
   end
 end

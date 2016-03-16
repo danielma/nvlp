@@ -161,5 +161,5 @@ class AddTransaction extends React.Component {
 }
 
 export default observe({
-  envelopes: EnvelopeApi.query("index")
+  envelopes: EnvelopeApi.query("index"),
 })(AddTransaction)
