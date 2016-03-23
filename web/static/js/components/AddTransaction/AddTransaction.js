@@ -4,10 +4,11 @@ import Immutable from "immutable"
 import { Button, MoneyInput, ButtonGroup } from "components"
 import { money } from "utils"
 import EnvelopeApi from "api/envelope"
+import TransactionApi from "api/transaction"
 
 const emptyDesignation = new Immutable.Map({
-  amountCents: 0,
-  envelopeId: null,
+  amount_cents: 0,
+  envelope_id: null,
 })
 
 class AddTransaction extends React.Component {
@@ -32,32 +33,32 @@ class AddTransaction extends React.Component {
   updateTransactionAmount(transactionAmountCents) {
     let { designations } = this.state
     if (designations.size === 1) {
-      designations = designations.setIn([0, "amountCents"], transactionAmountCents)
+      designations = designations.setIn([0, "amount_cents"], transactionAmountCents)
     }
     this.setState({ transactionAmountCents, designations })
   }
 
-  updateDesignationAmount(index, amountCents) {
+  updateDesignationAmount(index, amount_cents) {
     const designations = this.state.designations.
-      update(index, (designation) => designation.set("amountCents", amountCents))
+      update(index, (designation) => designation.set("amount_cents", amount_cents))
 
     this.setState({ designations })
   }
 
-  updateDesignationEnvelope(index, envelopeId) {
+  updateDesignationEnvelope(index, envelope_id) {
     const designations = this.state.designations.
-      update(index, (designation) => designation.set("envelopeId", envelopeId))
+      update(index, (designation) => designation.set("envelope_id", envelope_id))
 
     this.setState({ designations })
   }
 
-  addTransaction() {
-    // Parse.Cloud.run("createTransaction", {
-    //   amountCents: this.state.transactionAmountCents,
-    //   payee: this.state.payee,
-    //   designations: this.state.designations.toJS(),
-    // })
-  }
+  addTransaction = () => {
+    TransactionApi.create({
+      amount_cents: this.state.transactionAmountCents,
+      payee: this.state.payee,
+      designations: this.state.designations.toJS(),
+    })
+  };
 
   addDesignation = () => {
     this.setState({ designations: this.state.designations.push(emptyDesignation) })
@@ -75,7 +76,7 @@ class AddTransaction extends React.Component {
     return [
       this.state.payee && (this.state.payee.trim() !== ""),
       this.isValidAmount(),
-      this.state.designations.every((designation) => designation.get("envelopeId")),
+      this.state.designations.every((designation) => designation.get("envelope_id")),
     ].every((bool) => bool === true)
   }
 
@@ -85,7 +86,7 @@ class AddTransaction extends React.Component {
     // reverse signs
     const transactionAmountCents = this.state.transactionAmountCents * -1
     const designations = this.state.designations.
-      map((designation) => designation.update("amountCents", (amount) => amount * -1))
+      map((designation) => designation.update("amount_cents", (amount) => amount * -1))
 
     this.setState({ isIncome, transactionAmountCents, designations })
   }
@@ -98,7 +99,7 @@ class AddTransaction extends React.Component {
 
   getDesignationTotal() {
     return this.state.designations.
-      reduce((acc, designation) => acc + designation.get("amountCents"), 0)
+      reduce((acc, designation) => acc + designation.get("amount_cents"), 0)
   }
 
   getSignMultiplier() {
@@ -136,10 +137,10 @@ class AddTransaction extends React.Component {
             {this.state.designations.size > 1 && <MoneyInput
               onChange={(value) => this.updateDesignationAmount(index, value)}
               reverseDisplay={!this.state.isIncome}
-              value={designation.get("amountCents")} />
+              value={designation.get("amount_cents")} />
             }
             <select
-              value={designation.get("envelopeId")}
+              value={designation.get("envelope_id")}
               onChange={(e) => this.updateDesignationEnvelope(index, e.target.value)}>
               {[{}].concat(this.props.envelopes).map((envelope) => (
                 <option key={envelope.id} value={envelope.id}>{envelope.name}</option>

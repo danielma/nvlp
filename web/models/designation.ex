@@ -9,7 +9,7 @@ defmodule Nvlp.Designation do
     timestamps
   end
 
-  @required_fields ~w(amount_cents)
+  @required_fields ~w(amount_cents envelope_id)
   @optional_fields ~w()
 
   @doc """

@@ -14,8 +14,8 @@ defmodule Nvlp.Transaction do
     timestamps
   end
 
-  @required_fields ~w(payee designated posted_at institution_id amount_cents memo)
-  @optional_fields ~w()
+  @required_fields ~w(payee designated amount_cents)
+  @optional_fields ~w(posted_at memo institution_id)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -26,6 +26,7 @@ defmodule Nvlp.Transaction do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> put_change(:posted_at, Ecto.DateTime.utc)
     |> cast_assoc(:designations, required: true)
   end
 end

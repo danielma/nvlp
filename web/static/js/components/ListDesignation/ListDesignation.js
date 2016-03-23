@@ -1,15 +1,15 @@
-import React, { PropTypes } from 'react'
-import R from 'ramda'
-import styles from '../ListDesignation/ListDesignation.sass'
-import { money } from 'utils'
-import { TransactionEditor } from 'components'
+import React, { PropTypes } from "react"
+import R from "ramda"
+import styles from "../ListDesignation/ListDesignation.sass"
+import { money } from "utils"
+import { TransactionEditor } from "components"
 
 const payee = (designationOrTransaction) => (
-  R.path(['transaction', 'payee'], designationOrTransaction) || designationOrTransaction.payee
+  R.path(["transaction", "payee"], designationOrTransaction) || designationOrTransaction.payee
 )
 
 const transactionId = (designationOrTransaction) => (
-  R.path(['transaction', 'objectId'], designationOrTransaction) || designationOrTransaction.objectId
+  R.path(["transaction", "objectId"], designationOrTransaction) || designationOrTransaction.objectId
 )
 
 export default class ListDesignation extends React.Component {
@@ -23,7 +23,7 @@ export default class ListDesignation extends React.Component {
     super(props)
 
     this.state = {
-      isEditing: false
+      isEditing: false,
     }
   }
 

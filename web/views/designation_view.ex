@@ -9,10 +9,19 @@ defmodule Nvlp.DesignationView do
     %{data: render_one(designation, Nvlp.DesignationView, "designation.json")}
   end
 
+  def render("designation.json", %{designation: %Nvlp.Designation{transaction: %Nvlp.Transaction{} = transaction} = designation}) do
+    %{id: designation.id,
+      amount_cents: designation.amount_cents,
+      envelope_id: designation.envelope_id,
+      transaction: Nvlp.TransactionView.render("transaction.json", %{transaction: transaction}),
+    }
+  end
+
   def render("designation.json", %{designation: designation}) do
     %{id: designation.id,
       amount_cents: designation.amount_cents,
       envelope_id: designation.envelope_id,
-      transaction_id: designation.transaction_id}
+      transaction_id: designation.transaction_id,
+    }
   end
 end

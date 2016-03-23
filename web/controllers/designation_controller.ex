@@ -5,8 +5,15 @@ defmodule Nvlp.DesignationController do
 
   plug :scrub_params, "designation" when action in [:create, :update]
 
+  def index(conn, %{"envelope_id" => envelope_id}) do
+    designations = Repo.all(from d in Designation,
+                            where: d.envelope_id == ^(envelope_id),
+                            preload: [:transaction])
+    render(conn, "index.json", designations: designations)
+  end
+
   def index(conn, _params) do
-    designations = Repo.all(Designation)
+    designations = Repo.all(from d in Designation, preload: [:transaction])
     render(conn, "index.json", designations: designations)
   end
 
