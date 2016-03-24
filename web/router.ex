@@ -1,5 +1,6 @@
-defmodule Envelope.Router do
-  use Envelope.Web, :router
+defmodule Nvlp.Router do
+  import Nvlp.Plugs.Authenticated
+  use Nvlp.Web, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,16 +12,33 @@ defmodule Envelope.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :api_authentication
   end
 
-  scope "/", Envelope do
+  pipeline :browser_auth do
+    plug :browser_authentication
+  end
+
+  scope "/api", Nvlp do
+    pipe_through :api
+
+    resources "/accounts", AccountController, except: [:new, :edit]
+    resources "/envelopes", EnvelopeController, except: [:new, :edit]
+    resources "/transactions", TransactionController, except: [:new, :edit]
+    resources "/designations", DesignationController, except: [:new, :edit]
+  end
+
+  scope "/", Nvlp do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Envelope do
-  #   pipe_through :api
-  # end
+  scope "/", Nvlp do
+    pipe_through :browser
+    pipe_through :browser_auth
+
+    get "/*anything", PageController, :index
+  end
 end

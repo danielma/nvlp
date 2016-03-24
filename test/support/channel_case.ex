@@ -1,4 +1,4 @@
-defmodule Envelope.ChannelCase do
+defmodule Nvlp.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -20,20 +20,20 @@ defmodule Envelope.ChannelCase do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 
-      alias Envelope.Repo
+      alias Nvlp.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
 
 
       # The default endpoint for testing
-      @endpoint Envelope.Endpoint
+      @endpoint Nvlp.Endpoint
     end
   end
 
   setup tags do
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Envelope.Repo, [])
+      Ecto.Adapters.SQL.restart_test_transaction(Nvlp.Repo, [])
     end
 
     :ok

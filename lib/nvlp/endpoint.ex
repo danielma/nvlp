@@ -1,14 +1,14 @@
-defmodule Envelope.Endpoint do
-  use Phoenix.Endpoint, otp_app: :envelope
+defmodule Nvlp.Endpoint do
+  use Phoenix.Endpoint, otp_app: :nvlp
 
-  socket "/socket", Envelope.UserSocket
+  socket "/socket", Nvlp.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :envelope, gzip: false,
+    at: "/", from: :nvlp, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -35,5 +35,5 @@ defmodule Envelope.Endpoint do
     key: "_envelope_key",
     signing_salt: "e76TwkCU"
 
-  plug Envelope.Router
+  plug Nvlp.Router
 end

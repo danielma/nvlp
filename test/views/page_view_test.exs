@@ -1,3 +1,3 @@
-defmodule Envelope.PageViewTest do
-  use Envelope.ConnCase, async: true
+defmodule Nvlp.PageViewTest do
+  use Nvlp.ConnCase, async: true
 end

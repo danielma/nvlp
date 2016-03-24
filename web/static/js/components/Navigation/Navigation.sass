@@ -1,0 +1,33 @@
+@import '~styles/variables'
+
+.navigation
+  flex-grow: 0
+  background-color: $hilfigher
+  text-transform: uppercase
+  font-family: "Montserrat"
+
+  li
+    display: inline-block
+
+    a
+      display: block
+      color: $lightblue
+      text-decoration: none
+      padding: 1rem
+      transition: all .2s
+
+.activeItem
+  a
+    background-color: $mauve
+
+.logout
+  height: 1rem
+  width: 1rem
+  position: absolute
+  z-index: 1
+  top: 1rem
+  right: 1rem
+  cursor: pointer
+
+  svg
+    fill: $mauve

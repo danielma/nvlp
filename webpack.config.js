@@ -4,7 +4,7 @@ var webpack = require('webpack')
 require('dotenv').load()
 
 module.exports = {
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   entry: [
     //'webpack-hot-middleware/client',
     './web/static/js/app.js',
@@ -22,6 +22,11 @@ module.exports = {
     path: "./priv/static/js",
     filename: 'app.js',
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      "fetch": "imports?this=>global!exports?global.fetch!whatwg-fetch"
+    })
+  ],
   module: {
     loaders: [
       {

@@ -1,4 +1,4 @@
-defmodule Envelope.ModelCase do
+defmodule Nvlp.ModelCase do
   @moduledoc """
   This module defines the test case to be used by
   model tests.
@@ -16,18 +16,18 @@ defmodule Envelope.ModelCase do
 
   using do
     quote do
-      alias Envelope.Repo
+      alias Nvlp.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
-      import Envelope.ModelCase
+      import Nvlp.ModelCase
     end
   end
 
   setup tags do
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Envelope.Repo, [])
+      Ecto.Adapters.SQL.restart_test_transaction(Nvlp.Repo, [])
     end
 
     :ok

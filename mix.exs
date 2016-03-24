@@ -1,8 +1,8 @@
-defmodule Envelope.Mixfile do
+defmodule Nvlp.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :envelope,
+    [app: :nvlp,
      version: "0.0.1",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
@@ -17,7 +17,7 @@ defmodule Envelope.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {Envelope, []},
+    [mod: {Nvlp, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
                     :phoenix_ecto, :postgrex]]
   end
@@ -35,6 +35,7 @@ defmodule Envelope.Mixfile do
      {:phoenix_ecto, "~> 2.0"},
      {:phoenix_html, "~> 2.4"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
+     {:mix_test_watch, "~> 0.2", only: :dev},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"}]
   end

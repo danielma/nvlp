@@ -6,12 +6,12 @@
 use Mix.Config
 
 # Configures the endpoint
-config :envelope, Envelope.Endpoint,
+config :nvlp, Nvlp.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
   secret_key_base: "mOypnocNamM0ecMOxdIHmEXLZmZKILplBgjCFjRJwC4q3+vtEUlluL707ZORUjvQ",
   render_errors: [accepts: ~w(html json)],
-  pubsub: [name: Envelope.PubSub,
+  pubsub: [name: Nvlp.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

@@ -1,5 +1,5 @@
-defmodule Envelope.ErrorView do
-  use Envelope.Web, :view
+defmodule Nvlp.ErrorView do
+  use Nvlp.Web, :view
 
   def render("404.html", _assigns) do
     "Page not found"

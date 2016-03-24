@@ -1,0 +1,28 @@
+@import '~styles/variables'
+
+.listEnvelope
+  font-size: .7rem
+  font-weight: 900
+  text-transform: uppercase
+  padding: .3rem
+  display: flex
+  text-decoration: none
+  color: inherit
+
+  &.selected
+    background-color: lighten($hilfigher, 10%)
+
+  > *
+    flex-grow: 1
+
+.name
+  margin-right: 3rem
+
+.amount
+  text-align: right
+
+  &.positive
+    color: $grass
+
+  &.negative
+    color: $mauve

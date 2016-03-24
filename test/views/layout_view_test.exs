@@ -1,3 +1,3 @@
-defmodule Envelope.LayoutViewTest do
-  use Envelope.ConnCase, async: true
+defmodule Nvlp.LayoutViewTest do
+  use Nvlp.ConnCase, async: true
 end
