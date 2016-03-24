@@ -5,6 +5,10 @@ class TransactionApi extends ApiBase {
     return this.get("transactions", data)
   }
 
+  show(id) {
+    return this.get(`transactions/${id}`)
+  }
+
   create(transaction) {
     const promise = this.post("transactions", { transaction }, { method: "POST" })
     promise.then(this.markQueriesAsNeedingUpdate)

@@ -12,6 +12,12 @@ defmodule Nvlp.DesignationController do
     render(conn, "index.json", designations: designations)
   end
 
+  def index(conn, %{"transaction_id" => transaction_id}) do
+    designations = Repo.all(from d in Designation,
+                            where: d.transaction_id == ^(transaction_id))
+    render(conn, "index.json", designations: designations)
+  end
+
   def index(conn, _params) do
     designations = Repo.all(from d in Designation, preload: [:transaction])
     render(conn, "index.json", designations: designations)

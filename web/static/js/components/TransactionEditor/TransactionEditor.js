@@ -3,22 +3,22 @@ import Immutable from "immutable"
 import { Button, MoneyInput, ButtonGroup } from "components"
 import { money } from "utils"
 import { observe } from "utils/react"
+import DesignationApi from "api/designation"
+import EnvelopeApi from "api/envelope"
+import TransactionApi from "api/transaction"
 
-const emptyDesignation = Immutable.fromJS({
-  amountCents: 0,
-  envelope: { __type: "Pointer", className: "_Envelope", objectId: null },
+const emptyDesignation = new Immutable.Map({
+  amount_cents: 0,
+  envelope_id: null,
 })
 
-// @observe((props) => {
-//   const designationQuery = new Parse.Query("Designation")
-//   const transactionQuery = new Parse.Query("Transaction").equalTo("objectId", props.id).limit(1)
-
-//   return {
-//     envelopes: new Parse.Query("Envelope"),
-//     transactions: transactionQuery,
-//     initialDesignations: designationQuery.matchesQuery("transaction", transactionQuery),
-//   }
-// })
+@observe((props) => {
+  return {
+    envelopes: EnvelopeApi.query("index"),
+    transaction: TransactionApi.query("show", props.id),
+    initialDesignations: DesignationApi.query("index", { transaction_id: props.id }),
+  }
+})
 export default class TransactionEditor extends React.Component {
   static propTypes = {
     commit: PropTypes.func.isRequired,
@@ -27,7 +27,7 @@ export default class TransactionEditor extends React.Component {
     // observe
     loaded: PropTypes.bool,
     envelopes: PropTypes.arrayOf(PropTypes.object),
-    transactions: PropTypes.arrayOf(PropTypes.object),
+    transaction: PropTypes.arrayOf(PropTypes.object),
     initialDesignations: PropTypes.arrayOf(PropTypes.object),
   };
 
@@ -47,13 +47,9 @@ export default class TransactionEditor extends React.Component {
 
     this.setState({
       designations: Immutable.fromJS(nextProps.initialDesignations),
-      payee: nextProps.transactions[0].payee,
-      transactionAmountCents: nextProps.transactions[0].amountCents,
+      payee: nextProps.transaction.payee,
+      transactionAmountCents: nextProps.transaction.amount_cents,
     })
-  }
-
-  get transaction() {
-    return this.props.transactions.first
   }
 
   stringToCents(string) {
@@ -63,7 +59,7 @@ export default class TransactionEditor extends React.Component {
   updateTransactionAmount(transactionAmountCents) {
     let { designations } = this.state
     if (designations.size === 1) {
-      designations = designations.setIn([0, "amountCents"], transactionAmountCents)
+      designations = designations.setIn([0, "amount_cents"], transactionAmountCents)
     }
     const nextState = { designations }
 
@@ -73,23 +69,23 @@ export default class TransactionEditor extends React.Component {
     this.setState(nextState)
   }
 
-  updateDesignationAmount(index, amountCents) {
+  updateDesignationAmount(index, amount_cents) {
     const designations = this.state.designations.
-      update(index, (designation) => designation.set("amountCents", amountCents))
+      update(index, (designation) => designation.set("amount_cents", amount_cents))
 
     this.setState({ designations })
   }
 
   updateDesignationEnvelope(index, envelopeId) {
     const designations = this.state.designations.
-      update(index, (designation) => designation.setIn(["envelope", "objectId"], envelopeId))
+      update(index, (designation) => designation.set("envelope_id", envelopeId))
 
     this.setState({ designations })
   }
 
   commit = () => {
     this.props.commit({
-      amountCents: this.state.transactionAmountCents,
+      amount_cents: this.state.transactionAmountCents,
       payee: this.state.payee,
       designations: this.state.designations.toJS(),
     })
@@ -111,7 +107,7 @@ export default class TransactionEditor extends React.Component {
     return [
       this.state.payee && (this.state.payee.trim() !== ""),
       this.isValidAmount(),
-      this.state.designations.every((designation) => designation.getIn(["envelope", "objectId"])),
+      this.state.designations.every((designation) => designation.getIn(["envelope", "id"])),
     ].every((bool) => bool === true)
   }
 
@@ -122,7 +118,7 @@ export default class TransactionEditor extends React.Component {
     // reverse signs
     const transactionAmountCents = this.state.transactionAmountCents * -1
     const designations = this.state.designations.
-      map((designation) => designation.update("amountCents", (amount) => amount * -1))
+      map((designation) => designation.update("amount_cents", (amount) => amount * -1))
 
     this.setState({ isIncome, transactionAmountCents, designations })
   }
@@ -135,7 +131,7 @@ export default class TransactionEditor extends React.Component {
 
   getDesignationTotal() {
     return this.state.designations.
-      reduce((acc, designation) => acc + designation.get("amountCents"), 0)
+      reduce((acc, designation) => acc + designation.get("amount_cents"), 0)
   }
 
   getSignMultiplier() {
@@ -167,19 +163,19 @@ export default class TransactionEditor extends React.Component {
           type="text"
           onChange={(value) => this.updateTransactionAmount(value)}
           reverseDisplay={!this.state.isIncome}
-          value={this.state.designations.getIn([0, "amountCents"])} />
+          value={this.state.designations.getIn([0, "amount_cents"])} />
         {this.state.designations.map((designation, index) => (
           <div key={index}>
             {this.state.designations.size > 1 && <MoneyInput
               onChange={(value) => this.updateDesignationAmount(index, value)}
               reverseDisplay={!this.state.isIncome}
-              value={designation.get("amountCents")} />
+              value={designation.get("amount_cents")} />
             }
             <select
-              value={designation.getIn(["envelope", "objectId"])}
+              value={designation.get("envelope_id")}
               onChange={(e) => this.updateDesignationEnvelope(index, e.target.value)}>
               {[{}].concat(this.props.envelopes).map((envelope) => (
-                <option key={envelope.objectId} value={envelope.objectId}>{envelope.name}</option>
+                <option key={envelope.id} value={envelope.id}>{envelope.name}</option>
               ))}
             </select>
             {index > 0 && <Button onClick={() => this.removeDesignation(index)}>-</Button>}

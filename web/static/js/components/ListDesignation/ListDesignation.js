@@ -9,7 +9,7 @@ const payee = (designationOrTransaction) => (
 )
 
 const transactionId = (designationOrTransaction) => (
-  R.path(["transaction", "objectId"], designationOrTransaction) || designationOrTransaction.objectId
+  R.path(["transaction", "id"], designationOrTransaction) || designationOrTransaction.id
 )
 
 export default class ListDesignation extends React.Component {
