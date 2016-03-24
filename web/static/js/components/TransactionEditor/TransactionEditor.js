@@ -1,22 +1,22 @@
-import React, { PropTypes } from 'react'
-import Immutable from 'immutable'
-import { Button, MoneyInput, ButtonGroup } from 'components'
-import { money } from 'utils'
-import { observe } from 'utils/react'
+import React, { PropTypes } from "react"
+import Immutable from "immutable"
+import { Button, MoneyInput, ButtonGroup } from "components"
+import { money } from "utils"
+import { observe } from "utils/react"
 
 const emptyDesignation = Immutable.fromJS({
   amountCents: 0,
-  envelope: { __type: 'Pointer', className: '_Envelope', objectId: null },
+  envelope: { __type: "Pointer", className: "_Envelope", objectId: null },
 })
 
 // @observe((props) => {
-//   const designationQuery = new Parse.Query('Designation')
-//   const transactionQuery = new Parse.Query('Transaction').equalTo('objectId', props.id).limit(1)
+//   const designationQuery = new Parse.Query("Designation")
+//   const transactionQuery = new Parse.Query("Transaction").equalTo("objectId", props.id).limit(1)
 
 //   return {
-//     envelopes: new Parse.Query('Envelope'),
+//     envelopes: new Parse.Query("Envelope"),
 //     transactions: transactionQuery,
-//     initialDesignations: designationQuery.matchesQuery('transaction', transactionQuery),
+//     initialDesignations: designationQuery.matchesQuery("transaction", transactionQuery),
 //   }
 // })
 export default class TransactionEditor extends React.Component {
@@ -36,7 +36,7 @@ export default class TransactionEditor extends React.Component {
 
     this.state = {
       transactionAmountCents: 0,
-      designations: Immutable.List([emptyDesignation]),
+      designations: new Immutable.List([emptyDesignation]),
       isIncome: false,
       payee: null,
     }
@@ -63,7 +63,7 @@ export default class TransactionEditor extends React.Component {
   updateTransactionAmount(transactionAmountCents) {
     let { designations } = this.state
     if (designations.size === 1) {
-      designations = designations.setIn([0, 'amountCents'], transactionAmountCents)
+      designations = designations.setIn([0, "amountCents"], transactionAmountCents)
     }
     const nextState = { designations }
 
@@ -75,14 +75,14 @@ export default class TransactionEditor extends React.Component {
 
   updateDesignationAmount(index, amountCents) {
     const designations = this.state.designations.
-      update(index, (designation) => designation.set('amountCents', amountCents))
+      update(index, (designation) => designation.set("amountCents", amountCents))
 
     this.setState({ designations })
   }
 
   updateDesignationEnvelope(index, envelopeId) {
     const designations = this.state.designations.
-      update(index, (designation) => designation.setIn(['envelope', 'objectId'], envelopeId))
+      update(index, (designation) => designation.setIn(["envelope", "objectId"], envelopeId))
 
     this.setState({ designations })
   }
@@ -109,9 +109,9 @@ export default class TransactionEditor extends React.Component {
 
   isValid() {
     return [
-      this.state.payee && (this.state.payee.trim() !== ''),
+      this.state.payee && (this.state.payee.trim() !== ""),
       this.isValidAmount(),
-      this.state.designations.every((designation) => designation.getIn(['envelope', 'objectId'])),
+      this.state.designations.every((designation) => designation.getIn(["envelope", "objectId"])),
     ].every((bool) => bool === true)
   }
 
@@ -122,7 +122,7 @@ export default class TransactionEditor extends React.Component {
     // reverse signs
     const transactionAmountCents = this.state.transactionAmountCents * -1
     const designations = this.state.designations.
-      map((designation) => designation.update('amountCents', (amount) => amount * -1))
+      map((designation) => designation.update("amountCents", (amount) => amount * -1))
 
     this.setState({ isIncome, transactionAmountCents, designations })
   }
@@ -135,7 +135,7 @@ export default class TransactionEditor extends React.Component {
 
   getDesignationTotal() {
     return this.state.designations.
-      reduce((acc, designation) => acc + designation.get('amountCents'), 0)
+      reduce((acc, designation) => acc + designation.get("amountCents"), 0)
   }
 
   getSignMultiplier() {
@@ -143,7 +143,7 @@ export default class TransactionEditor extends React.Component {
   }
 
   render() {
-    const styles = require('./TransactionEditor.sass')
+    const styles = require("./TransactionEditor.sass")
 
     return (
       <div className={styles.addTransaction}>
@@ -167,16 +167,16 @@ export default class TransactionEditor extends React.Component {
           type="text"
           onChange={(value) => this.updateTransactionAmount(value)}
           reverseDisplay={!this.state.isIncome}
-          value={this.state.designations.getIn([0, 'amountCents'])} />
+          value={this.state.designations.getIn([0, "amountCents"])} />
         {this.state.designations.map((designation, index) => (
           <div key={index}>
             {this.state.designations.size > 1 && <MoneyInput
               onChange={(value) => this.updateDesignationAmount(index, value)}
               reverseDisplay={!this.state.isIncome}
-              value={designation.get('amountCents')} />
+              value={designation.get("amountCents")} />
             }
             <select
-              value={designation.getIn(['envelope', 'objectId'])}
+              value={designation.getIn(["envelope", "objectId"])}
               onChange={(e) => this.updateDesignationEnvelope(index, e.target.value)}>
               {[{}].concat(this.props.envelopes).map((envelope) => (
                 <option key={envelope.objectId} value={envelope.objectId}>{envelope.name}</option>
