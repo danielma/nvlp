@@ -1,6 +1,6 @@
 const { apiToken } = window
 import { serializeQuery } from "utils"
-import { Map, Set } from "immutable"
+import Immutable, { Map, Set } from "immutable"
 
 class EventEmitter {
   constructor() {
@@ -32,8 +32,6 @@ class EventEmitter {
   }
 }
 
-let id = 0
-
 class ApiQuery extends EventEmitter {
   constructor(apiInstance, method, ...args) {
     super()
@@ -41,7 +39,14 @@ class ApiQuery extends EventEmitter {
     this.apiInstance = apiInstance
     this.method = method
     this.args = args
-    this.uniqueId = `${apiInstance.constructor.name}#${id += 1}`
+  }
+
+  hashCode() {
+    return Immutable.fromJS({
+      api: this.apiInstance.constructor.name,
+      method: this.method,
+      args: this.args,
+    }).hashCode()
   }
 
   execute() {
